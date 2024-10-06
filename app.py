@@ -50,8 +50,37 @@ transform = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
 ])
 
+image_path = "0004.png"
+
+def sample_image():
+    # Open the sample image
+    image = Image.open(image_path)
+    st.session_state.sample_image = image  # Save the image to session state
+
+    # Preprocess the image
+    image_tensor = transform(image).unsqueeze(0)
+
+    # Make prediction
+    with torch.no_grad():
+        output = model(image_tensor)
+        _, predicted = torch.max(output, 1)
+        st.session_state.predicted_class = class_names[predicted.item()]  # Save prediction to session state
+
 # Streamlit web app layout
-st.title("CIFARInsight - Decode Your Images")
+st.markdown("# CIFARInsight")
+st.markdown("## Decode Your Images")
+
+st.markdown("Want to try a sample image?")
+if st.button("Sample Image"):
+    sample_image()
+
+# Display sample image and prediction if available
+if 'sample_image' in st.session_state:
+    st.image(st.session_state.sample_image, caption="Sample Image.", use_column_width=True)
+    if 'predicted_class' in st.session_state:
+        st.write(f"Predicted class: {st.session_state.predicted_class}")
+
+st.markdown("")
 st.write("Upload an image to classify it.")
 
 # File uploader
@@ -63,11 +92,11 @@ if uploaded_file is not None:
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
     # Preprocess the image
-    image = transform(image).unsqueeze(0)
+    image_tensor = transform(image).unsqueeze(0)
 
     # Make prediction
     with torch.no_grad():
-        output = model(image)
+        output = model(image_tensor)
         _, predicted = torch.max(output, 1)
         st.write(f"Predicted class: {class_names[predicted.item()]}")
 
