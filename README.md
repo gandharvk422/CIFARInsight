@@ -2,6 +2,10 @@
 
 This project was developed as a task assigned by SkyHighes Technologies. The main objective was to create a Convolutional Neural Network (CNN) model to classify images from the CIFAR-10 dataset. In addition to the model, I have developed a Streamlit web application named ***CIFARInsight - Decode Your Images*** to provide an interactive platform for users to upload images and receive predictions based on the trained model. This web application was created to enhance my resume and demonstrate my skills in deploying machine learning models.
 
+Launch the web app:
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cifarinsight.streamlit.app/)
+
 ## Project Structure
 
 The project consists of the following files:
@@ -18,7 +22,6 @@ To run the project, follow these steps:
 1. Clone the repository:
    ```
    git clone "https://github.com/gandharvk422/Image-Classification-with-CNN"
-   cd <repository-directory>
    ```
 
 2. Install the required libraries:
